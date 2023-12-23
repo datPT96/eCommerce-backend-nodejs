@@ -1,0 +1,25 @@
+# Ignore artifacts:
+build
+coverage
+docs
+.vscode
+
+# Ignore all HTML files:
+**/*.html
+
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+
+.env
+.eslintrc.js
+.gitignore
+prettier
+.prettierrc
+parkage.json
+parkage-lock.json
+yarn.lock
+
+LICENSE
+
