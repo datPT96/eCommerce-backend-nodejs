@@ -5,6 +5,7 @@ module.exports = {
     node: true
   },
   extends: "eslint:recommended",
+  plugins: ["prettier"],
   overrides: [
     {
       env: {
@@ -24,9 +25,20 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "semi": ["off", "never"],
-    "quotes": ["warn", "single"],
-    "no-console": ["off"],
     "no-unused-vars": "warn",
+    "prettier/prettier": [
+      "warn",
+      {
+        "printWidth": 120,
+        "tabWidth": 2,
+        "singleQuote": true,
+        "arrowParens": "avoid",
+        "semi": false,
+        "trailingComma": "none",
+        "endOfLine": "lf",
+        "useTabs": false,
+        "jsxSingleQuote": false
+      }
+    ]
   },
 };
