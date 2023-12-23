@@ -18,6 +18,7 @@ app.use(compression())
 //init db
 
 //init router
+// eslint-disable-next-line no-unused-vars
 app.get('/', (req, res, next) => {
   return res.status(200).json({
     message: 'Welcome Server!'
