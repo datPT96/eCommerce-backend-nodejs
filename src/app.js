@@ -12,6 +12,7 @@ app.use(morgan('dev'));
 // morgan('short')
 // morgan('tiny')
 app.use(helmet());
+
 app.use(compression());
 
 //init db
