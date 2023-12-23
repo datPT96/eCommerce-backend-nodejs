@@ -1,10 +1,13 @@
 const app = require('./src/app')
+const {
+  app: { port }
+} = require('./src/configs/config.mongodb')
 
-const PORT = 3000
+const PORT = port || 3003
 
 // eslint-disable-next-line no-unused-vars
-const server = app.listen(3000, () => {
-  console.log(`WSV eCommerce start on port ${PORT}`)
+const server = app.listen(PORT, () => {
+  console.log('🚀 Start at port: ', PORT, '. Node version: ', process.version)
 })
 
 // process.on('SIGINT', () => {
