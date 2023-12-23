@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const { default: helmet } = require('helmet')
 const compression = require('compression')
+require('dotenv').config()
 
 const app = express()
 
@@ -17,8 +18,8 @@ app.use(compression())
 
 //init db
 require('./dbs/init.mongodb')
-const { checkOverLoad } = require('./helpers/check.connect')
-checkOverLoad()
+// const { checkOverLoad } = require('./helpers/check.connect')
+// checkOverLoad()
 //init router
 // eslint-disable-next-line no-unused-vars
 app.get('/', (req, res, next) => {
