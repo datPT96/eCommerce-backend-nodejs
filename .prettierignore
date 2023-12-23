@@ -13,6 +13,7 @@ docs
 **/node_modules
 
 .env
+.editorconfig
 .eslintrc.js
 .gitignore
 prettier
