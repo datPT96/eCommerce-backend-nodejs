@@ -13,20 +13,15 @@ app.use(morgan('dev'))
 // morgan('short')
 // morgan('tiny')
 app.use(helmet())
-
 app.use(compression())
-
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 //init db
 require('./dbs/init.mongodb')
 // const { checkOverLoad } = require('./helpers/check.connect')
 // checkOverLoad()
 //init router
-// eslint-disable-next-line no-unused-vars
-app.get('/', (req, res, next) => {
-  return res.status(200).json({
-    message: 'Welcome Server!'
-  })
-})
+app.use('/', require('./routes'))
 
 //handle error
 
