@@ -5,13 +5,8 @@ const crypto = require('node:crypto')
 const KeyTokenService = require('./keyToken.service')
 const { craeteTokenPair } = require('../auth/authUtils')
 const { getInfoData } = require('../utils')
-
-const RoleShop = {
-  SHOP: 'SHOP',
-  WRITER: 'WRITER',
-  EDITOR: 'EDITOR',
-  ADMIN: 'ADMIN'
-}
+const { RoleShop } = require('../constant')
+const errorCode = require('../constant/errorCode')
 
 class AccessService {
   static signUp = async ({ name, email, password }) => {
@@ -21,7 +16,7 @@ class AccessService {
 
       if (holderShop) {
         return {
-          code: 200,
+          code: errorCode.OK,
           message: 'Shop already exists'
         }
       }
@@ -62,7 +57,7 @@ class AccessService {
 
         if (!keyStore) {
           return {
-            code: 400,
+            code: errorCode.INTERNAL_SERVER,
             message: 'keystore error'
           }
         }
@@ -72,7 +67,7 @@ class AccessService {
         console.log('Created tokens----------------', tokens)
 
         return {
-          code: 201,
+          code: errorCode.CREATED,
           metadata: {
             shop: getInfoData({ fileds: ['_id', 'name', 'email'], object: newShop }),
             tokens
@@ -80,12 +75,12 @@ class AccessService {
         }
       }
       return {
-        code: 200,
+        code: errorCode.OK,
         metadata: null
       }
     } catch (error) {
       return {
-        code: 400,
+        code: errorCode.INTERNAL_SERVER,
         message: `${error}`,
         status: 'error'
       }

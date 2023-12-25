@@ -1,6 +1,7 @@
 'use strict'
 
 const keytokenModel = require('../models/keytoken.model')
+const errorCode = require('../constant/errorCode')
 
 class KeyTokenService {
   static createKeyToken = async ({ userId, publicKey, privateKey }) => {
@@ -16,7 +17,7 @@ class KeyTokenService {
       return tokens ? tokens.publicKey : null
     } catch (error) {
       return {
-        code: 400,
+        code: errorCode.INTERNAL_SERVER,
         message: `TokenKey: ${error}`,
         status: 'error'
       }
