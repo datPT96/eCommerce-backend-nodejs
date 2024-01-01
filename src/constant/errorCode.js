@@ -11,7 +11,9 @@ const errorCode = {
 
 const ReasonStatusCode = {
   FORBIDDEN: 'Bad request error',
-  CONFLICT: 'Conflict error'
+  CONFLICT: 'Conflict error',
+  CREATED: 'Created',
+  OK: 'Success'
 }
 
 module.exports = { errorCode, ReasonStatusCode }
