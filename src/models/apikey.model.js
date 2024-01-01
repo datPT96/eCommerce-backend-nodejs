@@ -8,7 +8,7 @@ var apiKeySchema = new Schema(
   {
     key: {
       type: String,
-      require: true,
+      required: true,
       unique: true
     },
     status: {
@@ -17,7 +17,7 @@ var apiKeySchema = new Schema(
     },
     permissions: {
       type: [String],
-      require: true,
+      required: true,
       enum: ['0000', '1111', '2222']
     }
   },

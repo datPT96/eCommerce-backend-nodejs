@@ -7,9 +7,37 @@ const { craeteTokenPair } = require('../auth/authUtils')
 const { getInfoData } = require('../utils')
 const { RoleShop } = require('../constant')
 const { errorCode } = require('../constant/errorCode')
-const { BadRequessError, ConflictRequestError } = require('../core/error.response')
+const { ReasonPhrases, StatusCodes } = require('../constant/httpStatusCode')
+const { BadRequessError, ConflictRequestError, AuthFailureError } = require('../core/error.response')
+const { findByEmail } = require('./shop.service')
 
 class AccessService {
+  static login = async ({ email, password, refreshToken = null }) => {
+    const foundShop = await findByEmail({ email })
+    if (!foundShop) throw new BadRequessError('Shop not registed')
+    const match = bycrypt.compare(password, foundShop.password)
+    if (!match) throw new AuthFailureError('Authentication error')
+
+    const privateKey = crypto.randomBytes(64).toString('hex')
+    const publicKey = crypto.randomBytes(64).toString('hex')
+
+    const { _id: userId } = foundShop._id
+    const tokens = await craeteTokenPair({ userId, email }, publicKey, privateKey)
+
+    await KeyTokenService.createKeyToken({
+      userId,
+      refreshToken: tokens.refreshToken,
+      privateKey,
+      publicKey
+    })
+
+    return {
+      metadata: {
+        shop: getInfoData({ fileds: ['_id', 'name', 'email'], object: foundShop }),
+        tokens
+      }
+    }
+  }
   static signUp = async ({ name, email, password }) => {
     // try {
     //step 1: check email exists
@@ -62,7 +90,7 @@ class AccessService {
       console.log('Created tokens----------------', tokens)
 
       return {
-        code: errorCode.CREATED,
+        code: StatusCodes.CREATED,
         metadata: {
           shop: getInfoData({ fileds: ['_id', 'name', 'email'], object: newShop }),
           tokens
@@ -70,7 +98,7 @@ class AccessService {
       }
     }
     return {
-      code: errorCode.OK,
+      code: StatusCodes.OK,
       metadata: null
     }
     // } catch (error) {
