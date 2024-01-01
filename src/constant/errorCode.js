@@ -5,7 +5,13 @@ const errorCode = {
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
   NOT_FOUND: 404,
+  CONFLICT: 409,
   INTERNAL_SERVER: 500
 }
 
-module.exports = errorCode
+const ReasonStatusCode = {
+  FORBIDDEN: 'Bad request error',
+  CONFLICT: 'Conflict error'
+}
+
+module.exports = { errorCode, ReasonStatusCode }
