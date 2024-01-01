@@ -1,6 +1,6 @@
 'use strict'
 
-const { errorCode, ReasonStatusCode } = require('../constant/errorCode')
+const { StatusCodes, ReasonPhrases } = require('../constant/httpStatusCode')
 
 class ErrorResponse extends Error {
   constructor(message, status) {
@@ -10,18 +10,25 @@ class ErrorResponse extends Error {
 }
 
 class ConflictRequestError extends ErrorResponse {
-  constructor(message = ReasonStatusCode.CONFLICT, statusCode = errorCode.CONFLICT) {
+  constructor(message = ReasonPhrases.CONFLICT, statusCode = StatusCodes.CONFLICT) {
     super(message, statusCode)
   }
 }
 
 class BadRequessError extends ErrorResponse {
-  constructor(message = ReasonStatusCode.BAD_REQUEST, statusCode = errorCode.BAD_REQUEST) {
+  constructor(message = ReasonPhrases.BAD_REQUEST, statusCode = StatusCodes.BAD_REQUEST) {
+    super(message, statusCode)
+  }
+}
+
+class AuthFailureError extends ErrorResponse {
+  constructor(message = ReasonPhrases.UNAUTHORIZED, statusCode = StatusCodes.UNAUTHORIZED) {
     super(message, statusCode)
   }
 }
 
 module.exports = {
   ConflictRequestError,
-  BadRequessError
+  BadRequessError,
+  AuthFailureError
 }
