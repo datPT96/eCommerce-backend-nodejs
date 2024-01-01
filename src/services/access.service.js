@@ -6,7 +6,7 @@ const KeyTokenService = require('./keyToken.service')
 const { craeteTokenPair } = require('../auth/authUtils')
 const { getInfoData } = require('../utils')
 const { RoleShop } = require('../constant')
-const errorCode = require('../constant/errorCode')
+const { errorCode } = require('../constant/errorCode')
 const { BadRequessError, ConflictRequestError } = require('../core/error.response')
 
 class AccessService {
